@@ -1,5 +1,9 @@
 console.log('HELLO');
 
+const container = document.querySelector('.container');
+const outerModal = document.querySelector('.outermodal');
+const innerModal = document.querySelector('.innermodal');
+
 const recipes = [
 	{
 		title: 'Eggs',
@@ -44,11 +48,9 @@ const recipes = [
 			'Wait, put them out',
 			'Add some salt on it',
 		],
-		id: 1596168522409,
+		id: 1596168522428,
 	},
 ];
-
-const container = document.querySelector('.container');
 
 const renderCard = () => {
 	// check the recipes collection
@@ -56,11 +58,13 @@ const renderCard = () => {
 		// generate the HTML
 		const myHTML = `
 			<div class="card_body">
-				<div class="card">
+				<div class="card" data-id="${result.id}">
 					<h2>${result.title}</h2>
 					<img src="${result.picture}" alt>
-					<p>${result.author}</p>
-					<p>Timing: ${result.timing} Difficulty: ${result.difficulty}</p>
+					<div class="details">
+						<p>${result.timing}</P> 
+						<p>${result.difficulty}</p>
+					</div>
 					<button class="buton_more_info">More info</button>
 				</div>
 			</div>
@@ -72,3 +76,69 @@ const renderCard = () => {
 
 const generateButton = document.querySelector('button.generate');
 generateButton.addEventListener('click', renderCard);
+
+// const handleHtml = event => {
+// 	event.preventDefault();
+// 	if(event.target.matches('.buton_more_info')) {
+// 		const detail = event.target.closest('.card');
+// 		const id = numbers(detail.dataset.id);
+// 		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
+// 		openModal(recipe);
+// 	}
+// }
+
+// window.addEventListener('click', handleHtml);
+
+// 	const myModal = `
+		
+// // 	`;
+// // 	document.innerHTML += myModal;
+// // 	console.log(myModal);
+
+// 
+
+// const openModal = e => {
+	
+// 		outerModal.classList.add('open');
+// }
+
+// const outsideClick = event => {
+// 	const outside = !event.target.closest('.innermodal');
+// 	if (outside) {
+// 		outerModal.classList.remove('open');
+// 	}
+// }
+
+
+
+	// 	const { title, picture, author, time, difficulty} = detail;
+
+	// 	innerModal.innerHTML = `
+	// 		<div class="modal_body">
+	// 			<div class="header">
+	// 				<h2>${title}</h2>
+	// 				<p>by ${author}</p>
+	// 			</div>
+	// 			<img src="${picture}">
+	// 			<div class="difficult_time">
+	// 				<p>${difficulty}</p>
+	// 				<p>${time}</p>
+	// 			</div>
+	// 			<div class="step_ingredient">
+	// 				<div>
+	// 					<h3>Steps</h3>
+	// 				</div>
+	// 				<div>
+	// 					<h3>Ingredients</h3>
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	`;
+	// 	console.log(innerHTML);
+	// 	outerModal.classList.add('open');
+	// }
+
+
+
+
+// outerModal.addEventListener('click', outsideClick);

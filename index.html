@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>WKP5</title>
-		<style>
-			.card_body {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				column-gap: 10px;
-				row-gap: 10px;
-			}
-			.card {
-				background-color: aquamarine;
-				width: 400px;
-				height: 400px;
-				padding: 2rem;
-				margin-bottom: 2rem;
-				text-align: center;
-			}
-			img {
-				width: 400px;
-				height: 200px;
-			}
-			.buton_more_info {
-				margin-top: 2rem;
-				padding-left: 2rem;
-				padding-right: 2rem;
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container"></div>
-		<button class="generate">GENERATE RECIPES</button>
-	</body>
-	<script src="script.js"></script>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WKP5</title>
+	<style>
+		.card_body {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			column-gap: 10px;
+			row-gap: 10px;
+		}
+
+		.card {
+			background-color: aquamarine;
+			width: 400px;
+			height: 400px;
+			padding: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.details {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		img {
+			width: 400px;
+			height: 200px;
+		}
+
+		.buton_more_info {
+			margin-top: 2rem;
+			padding-left: 2rem;
+			padding-right: 2rem;
+			text-align: center;
+		}
+
+		.innermodal {
+			width: 400px;
+			height: 400px;
+			position: fixed;
+			transform: translateY(-200px);
+		}
+
+		.outermodal.open .innermodal {
+			transform: translateY(0);
+		}
+
+		.outermodal.open {
+			opacity: 1;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		
+	</div>
+	<button class="generate">GENERATE RECIPES</button>
+
+	<div class="outermodal">
+		<div class="innermodal">
+
+		</div>
+	</div>
+</body>
+<script src="script.js"></script>
+
 </html>
