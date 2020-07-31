@@ -17,11 +17,11 @@ const recipes = [
 		id: 1596168482053,
 	},
 	{
-		title: 'Eggs',
+		title: 'Meat',
 		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
+		author: 'Anita',
+		difficulty: 'hard',
+		timing: 'More than an hour',
 		ingredients: ['eggs', 'salt', 'water'],
 		steps: [
 			'Put a pan on the fire',
@@ -32,11 +32,11 @@ const recipes = [
 		id: 1596168522409,
 	},
 	{
-		title: 'My recipe',
+		title: 'Kadaka',
 		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
+		author: 'Ally',
+		difficulty: 'medium',
+		timing: '45minutes',
 		ingredients: ['eggs', 'salt', 'water'],
 		steps: [
 			'Put a pan on the fire',
@@ -48,10 +48,26 @@ const recipes = [
 	},
 ];
 
+const container = document.querySelector('.container');
+
 const renderCard = () => {
 	// check the recipes collection
-	// generate the HTML
-	// put it in the DOM
+	recipes.forEach(result => {
+		// generate the HTML
+		const myHTML = `
+			<div class="card_body">
+				<div class="card">
+					<h2>${result.title}</h2>
+					<img src="${result.picture}" alt>
+					<p>${result.author}</p>
+					<p>Timing: ${result.timing} Difficulty: ${result.difficulty}</p>
+					<button class="buton_more_info">More info</button>
+				</div>
+			</div>
+		`;
+		// put it in the DOM
+	 container.innerHTML += myHTML;
+	})
 };
 
 const generateButton = document.querySelector('button.generate');
