@@ -52,24 +52,35 @@ const recipes = [
 ];
 
 const renderCard = () => {
-	// check the recipes collection
-	recipes.forEach(result => {
-		// generate the HTML
+	for (let i = 0; i < recipes.length; i++) {
+		const recipeId = recipes[i].id;
+		const recipeTitle = recipes[i].title;
+		const recipeAuthor = recipes[i].author;
+		const recipePicture = recipes[i].picture;
+		const recipeTiming = recipes[i].timing;
+		const recipeDifficulty = recipes[i].difficulty;
+		const recipeSteps = recipes[i].steps;
+		const recipeIngredients = recipes[i].ingredients;
 		const myHTML = `
-			<div class="card" data-id="${result.id}">
-				<h2>${result.title}</h2>
-				<img src="${result.picture}" alt>
+			<div class="card" data-id="${recipeId}" data-steps="${recipeSteps}"
+			data-ingredients="${recipeIngredients}" data-author="${recipeAuthor}">
+				<h2>${recipeTitle}</h2>
+				<img src="${recipePicture}" alt>
 				<div class="details">
-					<p>${result.timing}</P> 
-					<p>${result.difficulty}</p>
+					<p class="time">${recipeTiming}</P> 
+					<p class="difficulty">${recipeDifficulty}</p>
 				</div>
 				<button class="more_info">More info</button>
 			</div>
 		`;
 		// put it in the DOM
 	 container.insertAdjacentHTML('beforeend', myHTML);
-	})
-};
+	}
+	const newButton = `
+		<button class="newrecipe">Add a recipe</button>
+	`;
+	container.insertAdjacentHTML('afterend', newButton);
+}
 
 generateButton.addEventListener('click', renderCard);
 
@@ -77,85 +88,55 @@ generateButton.addEventListener('click', renderCard);
 const outerModal = document.querySelector('.outermodal');
 const innerModal = document.querySelector('.innermodal');
 
-//Create a fuction to handle the modal
+
 const openModal = () => {
-	recipes.forEach(value => {
+	outerModal.classList.add('open');
+}
+
+//Create a fuction to handle the modal
+const handleHtml = event => {
+	event.preventDefault();
+	//Create an event delegation for the button more info
+	if(event.target.matches('.more_info')) {
+		const detail = event.target.closest('.card');
+		const id = Number(detail.dataset.id);
+		const {author, steps, ingredients } = detail.dataset; 
+		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
+		const title = detail.querySelector('h2').textContent;
+		const picture = detail.querySelector('img').src;
+		const timing = detail.querySelector('.time').textContent;
+		const difficulty = detail.querySelector('.difficulty').textContent;
 		innerModal.innerHTML = `
-		    <div class="article" data-id="${value.id}">
+		    <div class="article" data-id="${id}">
 				<div class="header">
-					<h2>${value.title}</h2>
-					<p>by ${value.author}</p>
+					<h2>${title}</h2>
+					<p>by ${author}</p>
 				</div>
-				<img src="${value.picture}">
+				<img src="${picture}">
 				<div class="difficult_time">
-					<p>${value.timing}</p>
-					<p>${value.difficulty}</p>
+					<p>${timing}</p>
+					<p>${difficulty}</p>
 				</div>
 				<div class="step_ingredient">
 					<div>
 						<h3>Steps</h3>
-						<ul>
-							${value.steps}
-						</ul>
-
+						<p>${steps}</p>
 					</div>
 					<div>
 						<h3>Ingredients</h3>
-						<ol>
-							${value.ingredients}
-						</ol>
+						<p>${ingredients}</p>
 					</div>
 				</div>
 			</div>
 		`;
-		outerModal.classList.add('open');
-	});
-}
-
-const handleHtml = event => {
-	event.preventDefault();
-	if(event.target.matches('.more_info')) {
-		const detail = event.target.closest('.card');
-		const id = Number(detail.dataset.id);
-		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
 		openModal(recipe);
 
 	}
 }
 
 window.addEventListener('click', handleHtml);
-//Create an event delegation for the button more info
-// const handleHtml = event => {
-// 	console.log(event);
-// 	event.preventDefault();
-// 	if(event.target.matches('.buton_more_info')) {
-// 		const detail = event.target.closest('.card');
-// 		const id = Number(detail.dataset.id);
-// 		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
-// 		openModal(recipe);
-// 	}
-// }
 
-//Add event listener for that button
-
-
-
-
-// window.addEventListener('click', handleHtml);
-
-// 	const myModal = `
-		
-// // 	`;
-// // 	document.innerHTML += myModal;
-// // 	console.log(myModal);
-
-// 
-
-// const openModal = e => {
-	
-// 		outerModal.classList.add('open');
-// }
-
+//Close the modal
 const outsideClick = event => {
 	const outside = !event.target.closest('.innermodal');
 	if (outside) {
