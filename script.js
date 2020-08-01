@@ -1,8 +1,7 @@
 console.log('HELLO');
 
 const container = document.querySelector('.container');
-const outerModal = document.querySelector('.outermodal');
-const innerModal = document.querySelector('.innermodal');
+const generateButton = document.querySelector('button.generate');
 
 const recipes = [
 	{
@@ -57,35 +56,90 @@ const renderCard = () => {
 	recipes.forEach(result => {
 		// generate the HTML
 		const myHTML = `
-			<div class="card_body">
-				<div class="card" data-id="${result.id}">
-					<h2>${result.title}</h2>
-					<img src="${result.picture}" alt>
-					<div class="details">
-						<p>${result.timing}</P> 
-						<p>${result.difficulty}</p>
-					</div>
-					<button class="buton_more_info">More info</button>
+			<div class="card" data-id="${result.id}">
+				<h2>${result.title}</h2>
+				<img src="${result.picture}" alt>
+				<div class="details">
+					<p>${result.timing}</P> 
+					<p>${result.difficulty}</p>
 				</div>
+				<button class="more_info">More info</button>
 			</div>
 		`;
 		// put it in the DOM
-	 container.innerHTML += myHTML;
+	 container.insertAdjacentHTML('beforeend', myHTML);
 	})
 };
 
-const generateButton = document.querySelector('button.generate');
 generateButton.addEventListener('click', renderCard);
 
+//Grab the outermodal and the innermodal
+const outerModal = document.querySelector('.outermodal');
+const innerModal = document.querySelector('.innermodal');
+
+//Create a fuction to handle the modal
+const openModal = () => {
+	recipes.forEach(value => {
+		innerModal.innerHTML = `
+		    <div class="article" data-id="${value.id}">
+				<div class="header">
+					<h2>${value.title}</h2>
+					<p>by ${value.author}</p>
+				</div>
+				<img src="${value.picture}">
+				<div class="difficult_time">
+					<p>${value.timing}</p>
+					<p>${value.difficulty}</p>
+				</div>
+				<div class="step_ingredient">
+					<div>
+						<h3>Steps</h3>
+						<ul>
+							${value.steps}
+						</ul>
+
+					</div>
+					<div>
+						<h3>Ingredients</h3>
+						<ol>
+							${value.ingredients}
+						</ol>
+					</div>
+				</div>
+			</div>
+		`;
+		outerModal.classList.add('open');
+	});
+}
+
+const handleHtml = event => {
+	event.preventDefault();
+	if(event.target.matches('.more_info')) {
+		const detail = event.target.closest('.card');
+		const id = Number(detail.dataset.id);
+		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
+		openModal(recipe);
+
+	}
+}
+
+window.addEventListener('click', handleHtml);
+//Create an event delegation for the button more info
 // const handleHtml = event => {
+// 	console.log(event);
 // 	event.preventDefault();
 // 	if(event.target.matches('.buton_more_info')) {
 // 		const detail = event.target.closest('.card');
-// 		const id = numbers(detail.dataset.id);
+// 		const id = Number(detail.dataset.id);
 // 		const recipe = recipes.find(singleRecipe => singleRecipe.id === id);
 // 		openModal(recipe);
 // 	}
 // }
+
+//Add event listener for that button
+
+
+
 
 // window.addEventListener('click', handleHtml);
 
@@ -102,43 +156,11 @@ generateButton.addEventListener('click', renderCard);
 // 		outerModal.classList.add('open');
 // }
 
-// const outsideClick = event => {
-// 	const outside = !event.target.closest('.innermodal');
-// 	if (outside) {
-// 		outerModal.classList.remove('open');
-// 	}
-// }
+const outsideClick = event => {
+	const outside = !event.target.closest('.innermodal');
+	if (outside) {
+		outerModal.classList.remove('open');
+	}
+}
 
-
-
-	// 	const { title, picture, author, time, difficulty} = detail;
-
-	// 	innerModal.innerHTML = `
-	// 		<div class="modal_body">
-	// 			<div class="header">
-	// 				<h2>${title}</h2>
-	// 				<p>by ${author}</p>
-	// 			</div>
-	// 			<img src="${picture}">
-	// 			<div class="difficult_time">
-	// 				<p>${difficulty}</p>
-	// 				<p>${time}</p>
-	// 			</div>
-	// 			<div class="step_ingredient">
-	// 				<div>
-	// 					<h3>Steps</h3>
-	// 				</div>
-	// 				<div>
-	// 					<h3>Ingredients</h3>
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	`;
-	// 	console.log(innerHTML);
-	// 	outerModal.classList.add('open');
-	// }
-
-
-
-
-// outerModal.addEventListener('click', outsideClick);
+outerModal.addEventListener('click', outsideClick);
