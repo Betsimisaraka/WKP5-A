@@ -243,7 +243,7 @@ const handleNewIngredients = event => {
 			/>
 		</li>
     `;
-	ingredients.insertAdjacentHTML("beforebegin", myIngredients);
+	ingredientLists.insertAdjacentHTML("beforebegin", myIngredients);
 	}
   }
 
