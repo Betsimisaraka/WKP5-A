@@ -85,8 +85,8 @@ const renderCard = () => {
 				<h2>${recipeTitle}</h2>
 				<img src="${recipePicture}" alt>
 				<div class="details">
-					<p class="time">${recipeTiming}</P> 
-					<p class="difficulty">${recipeDifficulty}</p>
+					<p class="time">Timing: ${recipeTiming}</P> 
+					<p class="difficulty">Difficulty: ${recipeDifficulty}</p>
 				</div>
 				<button class="more_info">More info</button>
 			</div>
